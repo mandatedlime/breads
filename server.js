@@ -1,24 +1,19 @@
-// Dependencies
-const express = require('express')
-const { append } = require('express/lib/response')
-const app = express()
+const express = require("express");
 
+// CONFIGURATION
+require("dotenv").config();
+const PORT = process.env.PORT;
+const app = express();
 
-// configuration
-require('dotenv').config()
-const PORT = process.env.PORT
-console.log(PORT)
+// Routes
+app.get("/", (req, res) => {
+  res.send("BreadCrud");
+});
 
-// ROUTES
-app.get('/', (req, res) => {
-    res.send('nomming at port', PORT);
-})
+// Breads
+const breadsController = require("./controllers/breads_controller.js");
+app.use("/breads", breadsController);
 
-//Breads
-const breadsController = require('./controllers/breads_controller')
-app.use('/breads', breadsController)
-
-//LISTEN
 app.listen(PORT, () => {
-    console.log('nommin at port', PORT);
-})
+  console.log("nomming at port", PORT);
+});
